@@ -1,0 +1,32 @@
+name: "Get Ansible changed inventories directories"
+description: "Get Ansible changed inventories directories"
+inputs:
+  directory:
+    description: "Clusters directory"
+    required: true
+    default: "inventory"
+outputs:
+  directories:
+    description: "Directories containing Ansible changed inventories"
+    value: ${{ steps.changed-files.outputs.all_changed_files }}
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout sources
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Get Ansible changed inventories directories
+      id: changed-files
+      uses: tj-actions/changed-files@v41
+      with:
+        dir_names: true
+        dir_names_exclude_current_dir: true
+        dir_names_max_depth: 2
+        json: true
+        escape_json: false
+        quotepath: false
+        files: ${{ inputs.directory }}/**
+branding:
+  icon: folder
+  color: white
