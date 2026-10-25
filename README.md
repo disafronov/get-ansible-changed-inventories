@@ -45,3 +45,5 @@ jobs:
           ssh-private-key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
           sops-age-private-key: ${{ secrets.ANSIBLE_SOPS_AGE_KEY }}
 ```
+
+<!-- refactor: deps -->
